@@ -1,17 +1,62 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
+    <ion-title style="font-family:cursive;">
+      ConcierGo
     </ion-title>
   </ion-toolbar>
+  <ion-searchbar></ion-searchbar>
+  <ion-button size="small" color="primary">Tourist Attraction</ion-button>
+  <ion-button size="small" color="primary">Restaurants</ion-button>
+  <ion-button size="small" color="primary">Hotels</ion-button>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<style>
+  :root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+  }
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  header {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25em;
+    text-transform: uppercase;
+  }
+
+  section {
+    margin-top: 1em;
+    margin-bottom: 2.5em;
+  }
+
+  section:not(.full-width),
+  .full-width > header {
+    padding: 0 10px;
+  }
+</style>
+<br>
+<ion-content [fullscreen]="true">
+  <ion-list>
+
+    <ion-toolbar>
+      <ion-title >
+      Details
+      </ion-title>
+    </ion-toolbar>
+    
+    <ion-item>
+      <ion-input placeholder="Place"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Budget"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Start Date</ion-label>
+      <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+  <ion-item>
+      <ion-label>Ends</ion-label>
+      <ion-datetime value="1990-02-20" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+  </ion-list>
 </ion-content>

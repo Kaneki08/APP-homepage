@@ -4,6 +4,7 @@
       Tab 1
     </ion-title>
   </ion-toolbar>
+  <ion-searchbar></ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -13,5 +14,16 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-card>
+  <div #mapElement class="map"></div>
+  <ion-card-header>
+    <ion-card-subtitle>Current Location</ion-card-subtitle>
+    <ion-card-title>Madison, WI</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+   Address:
+  </ion-card-content>
+</ion-card>
+
+
 </ion-content>

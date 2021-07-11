@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LocationsService {
-  public listOFLocations = [
+  public locations = [
     {
       locationName: "Universal Studios",
       description: "Its a theme park and they make movies",

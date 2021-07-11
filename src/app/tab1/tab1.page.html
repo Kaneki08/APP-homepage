@@ -4,26 +4,24 @@
       Map
     </ion-title>
   </ion-toolbar>
-  <ion-searchbar></ion-searchbar>
+  <ion-searchbar 
+    [(ngModel)]="address" 
+    (setAddress)="getAddress($event)" 
+></ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Location</ion-title>
     </ion-toolbar>
   </ion-header>
 
 <ion-card>
-
   <div #map id="map"></div>
   <ion-card-header>
-    <ion-card-subtitle>Current Location</ion-card-subtitle>
-    <ion-card-title>Madison, WI</ion-card-title>
+    <ion-button (click)="getUserLocation()"> Click me to see your current Location</ion-button>
   </ion-card-header>
-  <ion-card-content>
-   Address:
-  </ion-card-content>
 </ion-card>
 
 

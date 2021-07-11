@@ -4,10 +4,6 @@
       ConcierGo
     </ion-title>
   </ion-toolbar>
-  <ion-searchbar></ion-searchbar>
-  <ion-button size="small" color="primary">Tourist Attraction</ion-button>
-  <ion-button size="small" color="primary">Restaurants</ion-button>
-  <ion-button size="small" color="primary">Hotels</ion-button>
 </ion-header>
 
 <style>
@@ -36,27 +32,11 @@
 </style>
 <br>
 <ion-content [fullscreen]="true">
-  <ion-list>
-
-    <ion-toolbar>
-      <ion-title >
-      Details
-      </ion-title>
-    </ion-toolbar>
-    
-    <ion-item>
-      <ion-input placeholder="Place"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input placeholder="Budget"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Start Date</ion-label>
-      <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
-    </ion-item>
-  <ion-item>
-      <ion-label>Ends</ion-label>
-      <ion-datetime value="1990-02-20" placeholder="Select Date"></ion-datetime>
-    </ion-item>
-  </ion-list>
+  <section>
+    <header>Explore Trips</header>
+    <ion-button >resturants </ion-button>
+    <ion-button>Hotels</ion-button>
+    <ion-button>Atractions</ion-button>
+  </section>
+  <ion-button expand="block"  [routerLink]="['/planning']">Let's plan a trip?</ion-button>
 </ion-content>

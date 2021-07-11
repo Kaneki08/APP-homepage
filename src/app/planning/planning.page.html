@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button style="float:left ;"></ion-back-button>
+    <br>
+    <br>
+    <br>
+    <ion-title>Planning the trip</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item>
+      <ion-label>Hotels</ion-label>
+      <ion-toggle slot="start" name="blueberry"color="success" ></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Attractions</ion-label>
+      <ion-toggle slot="start" name="apple" color="success"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Restaurants</ion-label>
+      <ion-toggle slot="start" name="grape"color="success" ></ion-toggle>
+    </ion-item>
+
+  
+  </ion-list>
+
+  <ion-button expand="block" [routerLink]="['/trip']">  Done </ion-button>
+</ion-content>

@@ -13,7 +13,7 @@ export class TripPage implements OnInit {
   ngOnInit() {
   }
 
-  public listOfLocations = [
+  public locations = [
     {
       locationName: "Universal Studios",
       description: "Its a theme park and they make movies",
@@ -38,4 +38,5 @@ export class TripPage implements OnInit {
       locationName: "Nest Cafe",
       description: "is a family owned diner that offers guests all day breakfast, Lunch and Dinner",
       tag: "Restaurants"
-    }]}
+    }]
+  }

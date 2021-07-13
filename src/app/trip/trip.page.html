@@ -4,8 +4,21 @@
     <ion-title>Trip</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
-  <ion-item *ngfor="let location of listOfLocations"> {{location}}
-  </ion-item>
-</ion-content>
+  
+  <ion-app>
+    <ion-header translucent>
+      <ion-toolbar>
+        <ion-title>Card</ion-title>
+      </ion-toolbar>
+    </ion-header>,
+    <ion-content fullscreen>
+      <ion-card *ngFor="let location of locations">
+        <ion-card-header>
+          <ion-card-title>{{location.locationName}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+        {{location.description}}
+        </ion-card-content>
+      </ion-card>
+    </ion-content>
+  </ion-app>

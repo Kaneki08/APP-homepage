@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core'
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 declare var google: any;
 
 @Component({
@@ -51,6 +51,7 @@ export class Tab1Page {
                 })
     }
   }
+
 
   // showMap() {
   //   this.geolocation.getCurrentPosition().then((res) => {

@@ -12,21 +12,21 @@
   <ion-list>
     <ion-item>
       <ion-label>Hotels</ion-label>
-      <ion-toggle slot="start" name="blueberry"color="success" ></ion-toggle>
+      <ion-toggle slot="start" color="success" (ionChange)="changeHotelToggle()"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label>Attractions</ion-label>
-      <ion-toggle slot="start" name="apple" color="success"></ion-toggle>
+      <ion-toggle slot="start"  color="success" (ionChange)="changeAttractionToggle()"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label>Restaurants</ion-label>
-      <ion-toggle slot="start" name="grape"color="success" ></ion-toggle>
+      <ion-toggle slot="start" color="success" (ionChange)="changeRestaurantToggle()"></ion-toggle>
     </ion-item>
 
   
   </ion-list>
 
-  <ion-button expand="block" [routerLink]="['/trip']">  Done </ion-button>
+  <ion-button expand="block" [routerLink]="['/trip']" [queryParams]="{hotels: [this.hotelToggle], attractions: [this.attractionToggle], restaurants: [this.restaurantToggle]}">Done</ion-button>
 </ion-content>

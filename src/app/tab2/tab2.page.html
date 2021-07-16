@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title style="font-family:cursive;">
-      ConcierGo
+      PoLocal
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -31,6 +31,8 @@
   }
 </style>
 <br>
+
+
 <ion-content [fullscreen]="true">
   <section>
     <header>Explore Trips</header>
@@ -38,5 +40,31 @@
     <ion-button>Hotels</ion-button>
     <ion-button>Atractions</ion-button>
   </section>
+  <section>
   <ion-button expand="block"  [routerLink]="['/planning']">Let's plan a trip?</ion-button>
+</section>
+<!-- Adding Your trips -->
+<section>
+<header>My Trip</header>
+<ion-slides pager="true" [options]="slideOps">
+  <ion-slide>
+    <ion-card>
+   <img src="https://static.onecms.io/wp-content/uploads/sites/28/2021/02/19/new-york-city-evening-NYCTG0221.jpg" style="width:300px;height:300px;">
+   <ion-card-title>New York</ion-card-title>
+    </ion-card>
+  </ion-slide>
+  <ion-slide>
+    <ion-card>
+   <img src="https://deadline.com/wp-content/uploads/2021/03/AdobeStock_90015597.jpeg?crop=3423px%2C509px%2C4952px%2C2772px&resize=681%2C383" style="width:300px;height:300px;">
+   <ion-card-title>Los Angeles </ion-card-title>
+    </ion-card>
+  </ion-slide>
+  <ion-slide>
+    <ion-card>
+   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfNd63mr0SYdsAmI0gTXMWXPzq7MIKp9dycA&usqp=CAU" style="width:300px;height:300px;">
+   <ion-card-title>Texas </ion-card-title>
+</ion-card>
+</ion-slide>
+</ion-slides>
+</section>
 </ion-content>

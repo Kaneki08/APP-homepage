@@ -40,26 +40,31 @@ export class TripPage implements OnInit {
     {
       locationName: "Universal Studios",
       description: "Its a theme park and they make movies",
+      Cost: "$500",
       tag: "attractions"
     },
     {
       locationName: "Disney Land",
       description: "Its a theme park based on disney",
+      Cost: "$700",
       tag: "attractions"
     },
     {
       locationName: "Hollywood Hotel",
       description: "This casual hotel with a retro vibe and a colorful outdoor fountain is a block from Santa Monica Boulevard",
+      Cost: "$300",
       tag: "hotels"
     },
     {
       locationName: "Sofitel Los Angeles at Beverly Hills",
       description: "Opposite upscale shopping at the Beverly Center, this high-end, contemporary hotel",
+      Cost: "$1200",
       tag: "hotels"
     },
     {
       locationName: "Nest Cafe",
       description: "is a family owned diner that offers guests all day breakfast, Lunch and Dinner",
+       Cost: "$200",
       tag: "restaurants"
     }];
 

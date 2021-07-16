@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  slideOps = {
+    initialSlide:2,
+    speed: 400
+  }
 
   constructor(public router:Router) {}
  

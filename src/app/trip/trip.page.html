@@ -19,10 +19,12 @@
         <ion-card-content>
         {{location.description}}.
         <ion-card-subtitle>Cost: {{location.Cost}}</ion-card-subtitle>
+        <ion-checkbox (click)="moveToSchedule()"  color="primary" checked slot="start"></ion-checkbox>
         <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
         <ion-card-subtitle>To </ion-card-subtitle>
         <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
         </ion-card-content>
       </ion-card>
+      <ion-button> Add to schedule </ion-button>
     </ion-content>
   </ion-app>

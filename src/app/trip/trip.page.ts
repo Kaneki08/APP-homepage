@@ -35,6 +35,7 @@ export class TripPage implements OnInit {
              (this.restaurantToggle === true && each.tag === "restaurants")
     })
   }
+  
 
   public locations = [
     {
@@ -69,9 +70,16 @@ export class TripPage implements OnInit {
     }];
 
 
+    moveToSchedule( locations ) {
+      let x = locations[0]
+    }
+
+
+
     /*
       Get the query parameters
       Filter locations by tag
     */
 
   }
+  

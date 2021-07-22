@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'trip',
     loadChildren: () => import('./trip/trip.module').then( m => m.TripPageModule)
   },
+  {
+    path: 'cal-modal',
+    loadChildren: () => import('./pages/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -3,7 +3,8 @@
     <ion-title>
       Tab 3
     </ion-title>
-    <ion-button (click)="createRandomEvents()"></ion-button>
+    <ion-button (click)="openCalModal()"><ion-icon name="add" slot="icon-only"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -25,11 +26,15 @@
 
 
 
-  <calendar [eventSource]="eventSource"
-          [calendarMode]="calendar.mode"
-          [currentDate]="calendar.currentDate"
-          (onTitleChanged)="onViewTitleChanged($event)"
-          >
+  <calendar  [eventSource]="eventSource"
+  [calendarMode]="calendar.mode"
+  [currentDate]="calendar.currentDate"
+  (onEventSelected)="onEventSelected($event)"
+  (onTitleChanged)="onViewTitleChanged($event)"
+  startHour="6"
+  endHour="20"
+  step="30"
+  startingDayWeek="1">
         </calendar>
 
   </ion-content>

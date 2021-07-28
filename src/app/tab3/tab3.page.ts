@@ -38,6 +38,13 @@ export class Tab3Page  {
     //   allDate: false
     // })
   }
+  next() {
+    this.myCal.slideNext();
+  }
+ 
+  back() {
+    this.myCal.slidePrev();
+  }
 
   // Change current month/week/day
   onViewTitleChanged(title) {

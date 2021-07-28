@@ -1,8 +1,11 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions,} from '@ionic-native/native-geocoder/ngx';
 declare var google: any;
+import { CalendarComponent} from 'ionic2-calendar';
+import { ModalController } from '@ionic/angular';
+import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
 
 @Component({
   selector: 'app-tab1',
@@ -19,12 +22,23 @@ export class Tab1Page {
   location: any;
   placeid: any;
   GoogleAutocomplete: any;
+  eventSource = [];
+  viewTitle: string;
+ 
+  calendar = {
+    mode: 'day',
+    currentDate: new Date(),
+  };
+ 
+  selectedDate: Date;
 
 
-  @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
+  @ViewChild( 'map', { read: ElementRef, static: false },) mapRef: ElementRef;
+
+  @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
   constructor(private geolocation: Geolocation,  private nativeGeocoder: NativeGeocoder,    
-    public zone: NgZone,
+    public zone: NgZone,private modalCtrl: ModalController
   ) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
@@ -128,6 +142,132 @@ export class Tab1Page {
     this.autocompleteItems = []
     this.autocomplete.input = ''
   }
+  ngOnInit() {
+    // const currentDate= new Date()
+    // const endTime= this.createEndTime(currentDate)
+    // console.log(currentDate)
+    // console.log(endTime, "this end time")
+    // this.eventSource.push({
+    //   title: "hotels", 
+    //   startTime: currentDate,
+    //   endTime: currentDate,
+    //   allDate: false
+    // })
+  }
+  next() {
+    this.myCal.slideNext();
+  }
+ 
+  back() {
+    this.myCal.slidePrev();
+  }
+
+  // Change current month/week/day
+  onViewTitleChanged(title) {
+    this.viewTitle = title;
+  }
+
+  // createRandomEvents() {
+  //   var events = [];
+  //   for (var i = 0; i < 50; i += 1) {
+  //     var date = new Date();
+  //     var eventType = Math.floor(Math.random() * 2);
+  //     var startDay = Math.floor(Math.random() * 90) - 45;
+  //     var endDay = Math.floor(Math.random() * 2) + startDay;
+  //     var startTime;
+  //     var endTime;
+  //     if (eventType === 0) {
+  //       startTime = new Date(
+  //         Date.UTC(
+  //           date.getUTCFullYear(),
+  //           date.getUTCMonth(),
+  //           date.getUTCDate() + startDay
+  //         )
+  //       );
+  //       if (endDay === startDay) {
+  //         endDay += 1;
+  //       }
+  //       endTime = new Date(
+  //         Date.UTC(
+  //           date.getUTCFullYear(),
+  //           date.getUTCMonth(),
+  //           date.getUTCDate() + endDay
+  //         )
+  //       );
+  //       events.push({
+  //         title: 'All Day - ' + i,
+  //         startTime: startTime,
+  //         endTime: endTime,
+  //         allDay: true,
+  //       });
+  //     } else {
+  //       var startMinute = Math.floor(Math.random() * 24 * 60);
+  //       var endMinute = Math.floor(Math.random() * 180) + startMinute;
+  //       startTime = new Date(
+  //         date.getFullYear(),
+  //         date.getMonth(),
+  //         date.getDate() + startDay,
+  //         0,
+  //         date.getMinutes() + startMinute
+  //       );
+  //       endTime = new Date(
+  //         date.getFullYear(),
+  //         date.getMonth(),
+  //         date.getDate() + endDay,
+  //         0,
+  //         date.getMinutes() + endMinute
+  //       );
+  //       events.push({
+  //         title: 'Event - ' + i,
+  //         startTime: startTime,
+  //         endTime: endTime,
+  //         allDay: false,
+  //       });
+  //     }
+  //   }
+  //   console.log(events),
+  //   this.eventSource = events;
+  // }
+ 
+  // removeEvents() {
+  //   this.eventSource = [];
+  // }
+
+  async openCalModal() {
+    const modal = await this.modalCtrl.create({
+      component: CalModalPage ,
+      cssClass: 'cal-modal',
+      backdropDismiss: false
+    });
+   
+    await modal.present();
+   
+    modal.onDidDismiss().then((result) => {
+      if (result.data && result.data.event) {
+        let event = result.data.event;
+        if (event.allDay) {
+          let start = event.startTime;
+           event.startTime = new Date(
+            Date.UTC(
+              start.getUTCFullYear(),
+              start.getUTCMonth(),
+              start.getUTCDate()
+              )
+          );
+          event.endTime = new Date(
+            Date.UTC(
+              start.getUTCFullYear(),
+              start.getUTCMonth(),
+              start.getUTCDate() + 1
+            )
+          );
+        }
+        this.eventSource.push(result.data.event);
+        this.myCal.loadEvents();
+      }
+    });
+   
+}
 }
 
 // showMap() {

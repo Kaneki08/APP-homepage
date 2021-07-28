@@ -24,13 +24,22 @@ export class Tab1Page {
   GoogleAutocomplete: any;
   eventSource = [];
   viewTitle: string;
+  // define event variable
+  event = {
+    title: '',
+    desc: '',
+    startTime: '',
+    endTime: '',
+    allDay: false
+  };
+  minDate = new Date().toISOString();
  
   calendar = {
     mode: 'day',
     currentDate: new Date(),
   };
  
-  selectedDate: Date;
+  // selectedDate: Date;
 
 
   @ViewChild( 'map', { read: ElementRef, static: false },) mapRef: ElementRef;
@@ -143,16 +152,7 @@ export class Tab1Page {
     this.autocomplete.input = ''
   }
   ngOnInit() {
-    // const currentDate= new Date()
-    // const endTime= this.createEndTime(currentDate)
-    // console.log(currentDate)
-    // console.log(endTime, "this end time")
-    // this.eventSource.push({
-    //   title: "hotels", 
-    //   startTime: currentDate,
-    //   endTime: currentDate,
-    //   allDate: false
-    // })
+    this.resetEvent();
   }
   next() {
     this.myCal.slideNext();
@@ -167,71 +167,7 @@ export class Tab1Page {
     this.viewTitle = title;
   }
 
-  // createRandomEvents() {
-  //   var events = [];
-  //   for (var i = 0; i < 50; i += 1) {
-  //     var date = new Date();
-  //     var eventType = Math.floor(Math.random() * 2);
-  //     var startDay = Math.floor(Math.random() * 90) - 45;
-  //     var endDay = Math.floor(Math.random() * 2) + startDay;
-  //     var startTime;
-  //     var endTime;
-  //     if (eventType === 0) {
-  //       startTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + startDay
-  //         )
-  //       );
-  //       if (endDay === startDay) {
-  //         endDay += 1;
-  //       }
-  //       endTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + endDay
-  //         )
-  //       );
-  //       events.push({
-  //         title: 'All Day - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: true,
-  //       });
-  //     } else {
-  //       var startMinute = Math.floor(Math.random() * 24 * 60);
-  //       var endMinute = Math.floor(Math.random() * 180) + startMinute;
-  //       startTime = new Date(
-  //         date.getFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + startDay,
-  //         0,
-  //         date.getMinutes() + startMinute
-  //       );
-  //       endTime = new Date(
-  //         date.getFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + endDay,
-  //         0,
-  //         date.getMinutes() + endMinute
-  //       );
-  //       events.push({
-  //         title: 'Event - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: false,
-  //       });
-  //     }
-  //   }
-  //   console.log(events),
-  //   this.eventSource = events;
-  // }
- 
-  // removeEvents() {
-  //   this.eventSource = [];
-  // }
+  
 
   async openCalModal() {
     const modal = await this.modalCtrl.create({
@@ -243,56 +179,58 @@ export class Tab1Page {
     await modal.present();
    
     modal.onDidDismiss().then((result) => {
-      if (result.data && result.data.event) {
-        let event = result.data.event;
-        if (event.allDay) {
-          let start = event.startTime;
-           event.startTime = new Date(
-            Date.UTC(
-              start.getUTCFullYear(),
-              start.getUTCMonth(),
-              start.getUTCDate()
-              )
-          );
-          event.endTime = new Date(
-            Date.UTC(
-              start.getUTCFullYear(),
-              start.getUTCMonth(),
-              start.getUTCDate() + 1
-            )
-          );
+        let eventCopy = {
+          title: this.event.title,
+          startTime:  new Date(this.event.startTime),
+          endTime: new Date(this.event.endTime),
+          allDay: this.event.allDay,
+          desc: this.event.desc
         }
-        this.eventSource.push(result.data.event);
+     
+        if (eventCopy.allDay) {
+          let start = eventCopy.startTime;
+          let end = eventCopy.endTime;
+     
+          eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+          eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+        }
+     
+        this.eventSource.push(eventCopy);
         this.myCal.loadEvents();
-      }
+        this.resetEvent();
+        console.log(this.eventSource, "TEST")
+      // if (result.data && result.data.event) {
+      //   let event = result.data.event;
+      //   if (event.allDay) {
+      //     let start = event.startTime;
+      //      event.startTime = new Date(
+      //       Date.UTC(
+      //         start.getUTCFullYear(),
+      //         start.getUTCMonth(),
+      //         start.getUTCDate()
+      //         )
+      //     );
+      //     event.endTime = new Date(
+      //       Date.UTC(
+      //         start.getUTCFullYear(),
+      //         start.getUTCMonth(),
+      //         start.getUTCDate() + 1
+      //       )
+      //     );
+      //   }
+      //   this.eventSource.push(result.data.event);
+      //   this.myCal.loadEvents();
+      // }
     });
-   
+}
+resetEvent() {
+  this.event = {
+    title: '',
+    desc: '',
+    startTime: new Date().toISOString(),
+    endTime: new Date().toISOString(),
+    allDay: false
+  };
 }
 }
 
-// showMap() {
-//   this.geolocation.getCurrentPosition().then((res) => {
-//     this.latitude = res.coords.latitude;
-//     this.longitude = res.coords.latitude;
-
-//     let latLng = new google.maps.LatLng(this.latitude, this.longitude);
-//     const options = {
-//       center: latLng,
-//       zoom: 15,
-//       disableDefaultUI: true
-//     }
-
-//     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
-//   })
-
-// var loc = {};
-// var geocoder = new google.maps.Geocoder();
-// console.log("hi")
-// const location = new google.maps.LatLng(-17.824858, 31.053028);
-// // const location = new google.maps.LatLng(-17.824858, 31.053028);
-// const options = {
-//   center: location,
-//   zoom: 15,
-//   disableDefaultUI: true
-// }
-// this.map = new google.maps.Map(this.mapRef.nativeElement, options);

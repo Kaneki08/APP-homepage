@@ -18,7 +18,7 @@ export class CalModalPage implements AfterViewInit {
     desc: '',
     startTime: null,
     endTime: '',
-    allDay: true
+    allDay: false
   };
  
   modalReady = false;

@@ -1,8 +1,7 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { CalendarComponent} from 'ionic2-calendar';
-import { ModalController } from '@ionic/angular';
-import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
- 
+import { CalendarComponent } from 'ionic2-calendar';
+import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -11,152 +10,109 @@ import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page  {
- eventSource = [];
-  viewTitle: string;
+  event = {
+    title: '',
+    desc: '',
+    startTime: '',
+    endTime: '',
+    allDay: false
+  };
+ 
+  minDate = new Date().toISOString();
+ 
+  eventSource = [];
+  viewTitle;
  
   calendar = {
-    mode: 'day',
+    mode: 'month',
     currentDate: new Date(),
   };
  
-  selectedDate: Date;
-  
-
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
-
-  constructor(private modalCtrl: ModalController ) { }
-
+ 
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+ 
   ngOnInit() {
-    // const currentDate= new Date()
-    // const endTime= this.createEndTime(currentDate)
-    // console.log(currentDate)
-    // console.log(endTime, "this end time")
-    // this.eventSource.push({
-    //   title: "hotels", 
-    //   startTime: currentDate,
-    //   endTime: currentDate,
-    //   allDate: false
-    // })
+    this.resetEvent();
+  }
+ 
+  resetEvent() {
+    this.event = {
+      title: '',
+      desc: '',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+      allDay: false
+    };
+  }
+ 
+  // Create the right event format and reload source
+  addEvent() {
+    let eventCopy = {
+      title: this.event.title,
+      startTime:  new Date(this.event.startTime),
+      endTime: new Date(this.event.endTime),
+      allDay: this.event.allDay,
+      desc: this.event.desc
+    }
+ 
+    if (eventCopy.allDay) {
+      let start = eventCopy.startTime;
+      let end = eventCopy.endTime;
+ 
+      eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+      eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+    }
+ 
+    this.eventSource.push(eventCopy);
+    this.myCal.loadEvents();
+    this.resetEvent();
   }
   next() {
-    this.myCal.slideNext();
-  }
+  var swiper = document.querySelector('.swiper-container')['swiper'];
+  swiper.slideNext();
+}
  
-  back() {
-    this.myCal.slidePrev();
-  }
-
-  // Change current month/week/day
-  onViewTitleChanged(title) {
-    this.viewTitle = title;
-  }
-
-  // createRandomEvents() {
-  //   var events = [];
-  //   for (var i = 0; i < 50; i += 1) {
-  //     var date = new Date();
-  //     var eventType = Math.floor(Math.random() * 2);
-  //     var startDay = Math.floor(Math.random() * 90) - 45;
-  //     var endDay = Math.floor(Math.random() * 2) + startDay;
-  //     var startTime;
-  //     var endTime;
-  //     if (eventType === 0) {
-  //       startTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + startDay
-  //         )
-  //       );
-  //       if (endDay === startDay) {
-  //         endDay += 1;
-  //       }
-  //       endTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + endDay
-  //         )
-  //       );
-  //       events.push({
-  //         title: 'All Day - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: true,
-  //       });
-  //     } else {
-  //       var startMinute = Math.floor(Math.random() * 24 * 60);
-  //       var endMinute = Math.floor(Math.random() * 180) + startMinute;
-  //       startTime = new Date(
-  //         date.getFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + startDay,
-  //         0,
-  //         date.getMinutes() + startMinute
-  //       );
-  //       endTime = new Date(
-  //         date.getFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + endDay,
-  //         0,
-  //         date.getMinutes() + endMinute
-  //       );
-  //       events.push({
-  //         title: 'Event - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: false,
-  //       });
-  //     }
-  //   }
-  //   console.log(events),
-  //   this.eventSource = events;
-  // }
+back() {
+  var swiper = document.querySelector('.swiper-container')['swiper'];
+  swiper.slidePrev();
+}
  
-  // removeEvents() {
-  //   this.eventSource = [];
-  // }
-
-  async openCalModal() {
-    const modal = await this.modalCtrl.create({
-      component: CalModalPage ,
-      cssClass: 'cal-modal',
-      backdropDismiss: false
-    });
-   
-    await modal.present();
-   
-    modal.onDidDismiss().then((result) => {
-      if (result.data && result.data.event) {
-        let event = result.data.event;
-        if (event.allDay) {
-          let start = event.startTime;
-           event.startTime = new Date(
-            Date.UTC(
-              start.getUTCFullYear(),
-              start.getUTCMonth(),
-              start.getUTCDate()
-              )
-          );
-          event.endTime = new Date(
-            Date.UTC(
-              start.getUTCFullYear(),
-              start.getUTCMonth(),
-              start.getUTCDate() + 1
-            )
-          );
-        }
-        this.eventSource.push(result.data.event);
-        this.myCal.loadEvents();
-      }
-    });
-   
+// Change between month/week/day
+changeMode(mode) {
+  this.calendar.mode = mode;
+}
+ 
+// Focus today
+today() {
+  this.calendar.currentDate = new Date();
+}
+ 
+// Selected date reange and hence title changed
+onViewTitleChanged(title) {
+  this.viewTitle = title;
+}
+ 
+// Calendar event was clicked
+async onEventSelected(event) {
+  // Use Angular date pipe for conversion
+  let start = formatDate(event.startTime, 'medium', this.locale);
+  let end = formatDate(event.endTime, 'medium', this.locale);
+ 
+  const alert = await this.alertCtrl.create({
+    header: event.title,
+    subHeader: event.desc,
+    message: 'From: ' + start + '<br><br>To: ' + end,
+    buttons: ['OK']
+  });
+  alert.present();
+}
+ 
+// Time slot was clicked
+onTimeSelected(ev) {
+  let selected = new Date(ev.selectedTime);
+  this.event.startTime = selected.toISOString();
+  selected.setHours(selected.getHours() + 1);
+  this.event.endTime = (selected.toISOString());
 }
 }
-
-  // createEndTime(currentDate) {
-  //   let endTime = new Date(Date.UTC(
-  //     currentDate.getUTCFullYear(),
-  //     currentDate.getUTCMonth(),
-  //     currentDate.getUTCDate()
-  //   ))

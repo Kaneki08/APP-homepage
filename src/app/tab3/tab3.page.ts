@@ -1,6 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { CalendarComponent} from 'ionic2-calendar';
-import { CalendarModule} from 'ion2-calendar';
 import { ModalController } from '@ionic/angular';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
  
@@ -125,12 +124,12 @@ export class Tab3Page  {
         let event = result.data.event;
         if (event.allDay) {
           let start = event.startTime;
-          event.startTime = new Date(
+           event.startTime = new Date(
             Date.UTC(
               start.getUTCFullYear(),
               start.getUTCMonth(),
               start.getUTCDate()
-            )
+              )
           );
           event.endTime = new Date(
             Date.UTC(

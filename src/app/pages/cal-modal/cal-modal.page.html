@@ -21,7 +21,11 @@
     <ion-label position="stacked">Description</ion-label>
     <ion-input tpye="text" [(ngModel)]="event.desc"></ion-input>
   </ion-item>
- 
+  <!-- <ion-item>
+    <ion-label position="stacked">Time frame</ion-label>
+    <ion-datetime display-format="DDD MMM YYYY hh:mm:ss " picker-format="h:mm A" value="Fri Jul 23 2021 11:28:53 GMT-0700 (Pacific Daylight Time)" [(ngModel)]="event.startTime"></ion-datetime>
+  </ion-item>
+  -->
   <calendar
     *ngIf="modalReady"
     [calendarMode]="calendar.mode"

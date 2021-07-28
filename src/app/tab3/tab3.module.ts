@@ -13,7 +13,6 @@ import { CalModalPageModule} from '../pages/cal-modal/cal-modal.module'
      NgCalendarModule,
     IonicModule,
     CommonModule,
-   
     FormsModule,
     ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }

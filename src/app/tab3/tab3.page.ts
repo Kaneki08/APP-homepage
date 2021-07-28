@@ -15,7 +15,7 @@ export class Tab3Page  {
   viewTitle: string;
  
   calendar = {
-    mode: 'month',
+    mode: 'day',
     currentDate: new Date(),
   };
  

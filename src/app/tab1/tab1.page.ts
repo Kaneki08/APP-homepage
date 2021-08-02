@@ -1,9 +1,13 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions,} from '@ionic-native/native-geocoder/ngx';
+import {
+  NativeGeocoder,
+  NativeGeocoderResult,
+  NativeGeocoderOptions,
+} from '@ionic-native/native-geocoder/ngx';
 declare var google: any;
-import { CalendarComponent} from 'ionic2-calendar';
+import { CalendarComponent } from 'ionic2-calendar';
 import { ModalController } from '@ionic/angular';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
 
@@ -14,10 +18,10 @@ import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
 })
 export class Tab1Page {
   map: any;
-  address:string;
+  address: string;
   latitude: number;
   longitude: number;
-  autocomplete: { input: string; };
+  autocomplete: { input: string };
   autocompleteItems: any[];
   location: any;
   placeid: any;
@@ -30,24 +34,26 @@ export class Tab1Page {
     desc: '',
     startTime: '',
     endTime: '',
-    allDay: false
+    allDay: false,
   };
   minDate = new Date().toISOString();
- 
+
   calendar = {
-    mode: 'day',
+    mode: 'week',
     currentDate: new Date(),
   };
- 
+
   // selectedDate: Date;
 
-
-  @ViewChild( 'map', { read: ElementRef, static: false },) mapRef: ElementRef;
+  @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-  constructor(private geolocation: Geolocation,  private nativeGeocoder: NativeGeocoder,    
-    public zone: NgZone,private modalCtrl: ModalController
+  constructor(
+    private geolocation: Geolocation,
+    private nativeGeocoder: NativeGeocoder,
+    public zone: NgZone,
+    private modalCtrl: ModalController
   ) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
@@ -81,7 +87,7 @@ export class Tab1Page {
       };
       this.map = new google.maps.Map(this.mapRef.nativeElement, options);
       this.addUserMarker(latLng);
-    })
+    });
   }
   addUserMarker(userLocation) {
     const map = this.map;
@@ -91,65 +97,66 @@ export class Tab1Page {
       title: 'myLocation',
     });
   }
-    
+
   getAddressFromCoords(lattitude, longitude) {
-    console.log("getAddressFromCoords "+lattitude+" "+longitude);
+    console.log('getAddressFromCoords ' + lattitude + ' ' + longitude);
     let options: NativeGeocoderOptions = {
       useLocale: true,
-      maxResults: 5    
-    }; 
-    this.nativeGeocoder.reverseGeocode(lattitude, longitude, options)
+      maxResults: 5,
+    };
+    this.nativeGeocoder
+      .reverseGeocode(lattitude, longitude, options)
       .then((result: NativeGeocoderResult[]) => {
-        this.address = "";
+        this.address = '';
         let responseAddress = [];
         for (let [key, value] of Object.entries(result[0])) {
-          if(value.length>0)
-          responseAddress.push(value); 
+          if (value.length > 0) responseAddress.push(value);
         }
         responseAddress.reverse();
         for (let value of responseAddress) {
-          this.address += value+", ";
+          this.address += value + ', ';
         }
         this.address = this.address.slice(0, -2);
       })
-      .catch((error: any) =>{ 
-        this.address = "Address Not Available!";
-      }); 
+      .catch((error: any) => {
+        this.address = 'Address Not Available!';
+      });
   }
 
   //FUNCTION SHOWING THE COORDINATES OF THE POINT AT THE CENTER OF THE MAP
-  ShowCords(){
-    alert('lat' +this.latitude+', long'+this.longitude )
+  ShowCords() {
+    alert('lat' + this.latitude + ', long' + this.longitude);
   }
-   //AUTOCOMPLETE, SIMPLY LOAD THE PLACE USING GOOGLE PREDICTIONS AND RETURNING THE ARRAY.
-   UpdateSearchResults(){
+  //AUTOCOMPLETE, SIMPLY LOAD THE PLACE USING GOOGLE PREDICTIONS AND RETURNING THE ARRAY.
+  UpdateSearchResults() {
     if (this.autocomplete.input == '') {
       this.autocompleteItems = [];
       return;
     }
-    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
-    (predictions, status) => {
-      this.autocompleteItems = [];
-      this.zone.run(() => {
-        predictions.forEach((prediction) => {
-          this.autocompleteItems.push(prediction);
+    this.GoogleAutocomplete.getPlacePredictions(
+      { input: this.autocomplete.input },
+      (predictions, status) => {
+        this.autocompleteItems = [];
+        this.zone.run(() => {
+          predictions.forEach((prediction) => {
+            this.autocompleteItems.push(prediction);
+          });
         });
-      });
-    });
+      }
+    );
   }
-  
+
   //wE CALL THIS FROM EACH ITEM.
   SelectSearchResult(item) {
     ///WE CAN CONFIGURE MORE COMPLEX FUNCTIONS SUCH AS UPLOAD DATA TO FIRESTORE OR LINK IT TO SOMETHING
-    alert(JSON.stringify(item))      
-    this.placeid = item.place_id
+    alert(JSON.stringify(item));
+    this.placeid = item.place_id;
   }
-  
-  
+
   //lET'S BE CLEAN! THIS WILL JUST CLEAN THE LIST WHEN WE CLOSE THE SEARCH BAR.
-  ClearAutocomplete(){
-    this.autocompleteItems = []
-    this.autocomplete.input = ''
+  ClearAutocomplete() {
+    this.autocompleteItems = [];
+    this.autocomplete.input = '';
   }
   ngOnInit() {
     this.resetEvent();
@@ -157,7 +164,7 @@ export class Tab1Page {
   next() {
     this.myCal.slideNext();
   }
- 
+
   back() {
     this.myCal.slidePrev();
   }
@@ -167,70 +174,57 @@ export class Tab1Page {
     this.viewTitle = title;
   }
 
-  
-
   async openCalModal() {
     const modal = await this.modalCtrl.create({
-      component: CalModalPage ,
+      component: CalModalPage,
       cssClass: 'cal-modal',
-      backdropDismiss: false
+      backdropDismiss: false,
     });
-   
-    await modal.present();
-   
-    modal.onDidDismiss().then((result) => {
-        let eventCopy = {
-          title: this.event.title,
-          startTime:  new Date(this.event.startTime),
-          endTime: new Date(this.event.endTime),
-          allDay: this.event.allDay,
-          desc: this.event.desc
-        }
-     
-        if (eventCopy.allDay) {
-          let start = eventCopy.startTime;
-          let end = eventCopy.endTime;
-     
-          eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-          eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
-        }
-     
-        this.eventSource.push(eventCopy);
-        this.myCal.loadEvents();
-        this.resetEvent();
-        console.log(this.eventSource, "TEST")
-      // if (result.data && result.data.event) {
-      //   let event = result.data.event;
-      //   if (event.allDay) {
-      //     let start = event.startTime;
-      //      event.startTime = new Date(
-      //       Date.UTC(
-      //         start.getUTCFullYear(),
-      //         start.getUTCMonth(),
-      //         start.getUTCDate()
-      //         )
-      //     );
-      //     event.endTime = new Date(
-      //       Date.UTC(
-      //         start.getUTCFullYear(),
-      //         start.getUTCMonth(),
-      //         start.getUTCDate() + 1
-      //       )
-      //     );
-      //   }
-      //   this.eventSource.push(result.data.event);
-      //   this.myCal.loadEvents();
-      // }
-    });
-}
-resetEvent() {
-  this.event = {
-    title: '',
-    desc: '',
-    startTime: new Date().toISOString(),
-    endTime: new Date().toISOString(),
-    allDay: false
-  };
-}
-}
 
+    await modal.present();
+
+    modal.onDidDismiss().then((result) => {
+      let eventCopy = {
+        title: result.data.event.title,
+        startTime: new Date(result.data.event.startTime),
+        endTime: new Date(result.data.event.endTime),
+        allDay: result.data.event.allDay,
+        desc: result.data.event.desc,
+      };
+
+      // handle event if its all day
+      if (eventCopy.allDay) {
+        let start = eventCopy.startTime;
+        let end = eventCopy.endTime;
+
+        eventCopy.startTime = new Date(
+          Date.UTC(
+            start.getUTCFullYear(),
+            start.getUTCMonth(),
+            start.getUTCDate()
+          )
+        );
+        eventCopy.endTime = new Date(
+          Date.UTC(
+            end.getUTCFullYear(),
+            end.getUTCMonth(),
+            end.getUTCDate() + 1
+          )
+        );
+      }
+
+      this.eventSource.push(eventCopy);
+      this.myCal.loadEvents();
+      this.resetEvent();
+    });
+  }
+  resetEvent() {
+    this.event = {
+      title: '',
+      desc: '',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+      allDay: false,
+    };
+  }
+}

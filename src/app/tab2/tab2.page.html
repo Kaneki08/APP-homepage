@@ -34,16 +34,17 @@
 
 
 <ion-content [fullscreen]="true">
+  <header style="text-align: center;">My Trips</header>
   <section>
-  <ion-button  [routerLink]="['/planning']">+</ion-button>
+  <ion-button id="size" [routerLink]="['/planning']" color fill="outline" style=" color: #FCAB10;" >+</ion-button>
 </section>
+
+<br>
+<br>
+<br>
 <!-- Adding Your trips -->
 <section>
-<header>Suggestions</header>
-<ion-button>Park</ion-button>
-<ion-button>Restaurants</ion-button>
-<ion-button>Hotels</ion-button>
-<ion-button>Art Museum</ion-button>
+<header style="text-align: center;">User trips</header>
 <ion-slides pager="true" [options]="slideOps">
   <ion-slide>
     <ion-card>

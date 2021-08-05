@@ -42,30 +42,60 @@ export class TripPage implements OnInit {
       locationName: "Universal Studios",
       description: "Its a theme park and they make movies",
       Cost: "$500",
+      startTime:"6 Am",
+      endTime:"9 Am",
       tag: "attractions"
     },
     {
       locationName: "Disney Land",
       description: "Its a theme park based on disney",
       Cost: "$700",
+      startTime:"9 Am",
+      endTime:"12 Pm",
       tag: "attractions"
     },
     {
       locationName: "Hollywood Hotel",
       description: "This casual hotel with a retro vibe and a colorful outdoor fountain is a block from Santa Monica Boulevard",
       Cost: "$300",
+      startTime:"6 Am",
+      endTime:"9 Am",
       tag: "hotels"
     },
     {
       locationName: "Sofitel Los Angeles at Beverly Hills",
       description: "Opposite upscale shopping at the Beverly Center, this high-end, contemporary hotel",
+      startTime:"6 Am",
+      endTime:"9 Am",
       Cost: "$1200",
       tag: "hotels"
+    },
+    {
+      locationName: 'In-N-Out Burger',
+      description: 'Best Burger Place',
+          cost: '$20',
+          startTime: '6 Am ',
+          endTime: ' 1 Pm ',
+          tag: "restaurants",
+          allDay: false,
+          img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/InNOut.svg/1200px-InNOut.svg.png",
+    },
+    {
+      locationName: 'Six flags',
+      description:"One of the best places to have fun",
+      cost: '$60',
+    startTime: '1 Pm',
+    endTime: '3 Pm ',
+    allDay: false,
+    img: "http://allears.net/wp-content/uploads/2019/04/Six-Flags-Promo.jpeg",
+    tag:"attractions",
     },
     {
       locationName: "Nest Cafe",
       description: "is a family owned diner that offers guests all day breakfast, Lunch and Dinner",
        Cost: "$200",
+       startTime:"8 Am",
+      endTime:"9 Am",
       tag: "restaurants"
     }];
 

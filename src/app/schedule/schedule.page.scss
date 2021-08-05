@@ -1,0 +1,53 @@
+img {
+    position: absolute;
+width: 80px;
+height: 52px;
+right: 15px;
+// border-radius: 100px #FCAB10;
+}
+
+#container:after {
+    display: block;
+    height: 0px;
+    clear: both;
+    float: none;
+}
+
+#container div {
+    float: left;
+
+}
+
+#box1 {
+    float:left; 
+//   background:Red;
+                width:25%;
+                height:100px;
+    // border: solid;
+}
+
+#box2 {
+    float:left; 
+    // background:Green;
+    width:50%;
+    height:100px;
+//  border: solid;
+}
+
+#box3 {
+    float:right;
+    // background:blue;
+    width:25%;
+    height:100px;
+// border: solid;
+}
+#size {
+    width: 50px;
+    height: 50px;
+    align-self: center;
+    bottom: 25px;
+}
+
+p {
+    color: white;
+}

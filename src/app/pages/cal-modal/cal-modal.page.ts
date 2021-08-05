@@ -16,32 +16,33 @@ export class CalModalPage implements AfterViewInit {
   event = {
     title: '',
     desc: '',
-    startTime: null,
+    startTime: '',
     endTime: '',
     allDay: false
   };
  
+  minDate = new Date().toISOString();
+
   modalReady = false;
  
-  constructor(private modalCtrl: ModalController) { }
- 
+  constructor(private modalCtrl: ModalController) {}
+
   ngAfterViewInit() {
     setTimeout(() => {
       this.modalReady = true;      
     }, 0);
   }
- 
-  save() {    
-    this.modalCtrl.dismiss({event: this.event})
+  save() {
+    this.modalCtrl.dismiss({ event: this.event });
   }
  
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
  
-  onTimeSelected(ev) {    
-    this.event.startTime = new Date(ev.selectedTime);
-  }
+  // onTimeSelected(ev) {    
+  //   this.event.startTime = new Date(ev.selectedTime);
+  // }
  
   close() {
     this.modalCtrl.dismiss();

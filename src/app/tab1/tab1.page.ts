@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, Inject,  LOCALE_ID  } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions,} from '@ionic-native/native-geocoder/ngx';
@@ -6,6 +6,8 @@ declare var google: any;
 import { CalendarComponent} from 'ionic2-calendar';
 import { ModalController } from '@ionic/angular';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
+import { formatDate } from '@angular/common';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -47,7 +49,7 @@ export class Tab1Page {
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
   constructor(private geolocation: Geolocation,  private nativeGeocoder: NativeGeocoder,    
-    public zone: NgZone,private modalCtrl: ModalController
+    public zone: NgZone,private modalCtrl: ModalController, @Inject(LOCALE_ID) private locale: string, private alertCtrl: AlertController
   ) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
@@ -154,6 +156,7 @@ export class Tab1Page {
   ngOnInit() {
     this.resetEvent();
   }
+  
   next() {
     this.myCal.slideNext();
   }
@@ -171,66 +174,71 @@ export class Tab1Page {
 
   async openCalModal() {
     const modal = await this.modalCtrl.create({
-      component: CalModalPage ,
+      component: CalModalPage,
       cssClass: 'cal-modal',
-      backdropDismiss: false
+      backdropDismiss: false,
     });
    
     await modal.present();
    
     modal.onDidDismiss().then((result) => {
-        let eventCopy = {
-          title: this.event.title,
-          startTime:  new Date(this.event.startTime),
-          endTime: new Date(this.event.endTime),
-          allDay: this.event.allDay,
-          desc: this.event.desc
-        }
-     
-        if (eventCopy.allDay) {
-          let start = eventCopy.startTime;
-          let end = eventCopy.endTime;
-     
-          eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-          eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
-        }
-     
-        this.eventSource.push(eventCopy);
-        this.myCal.loadEvents();
-        this.resetEvent();
-        console.log(this.eventSource, "TEST")
-      // if (result.data && result.data.event) {
-      //   let event = result.data.event;
-      //   if (event.allDay) {
-      //     let start = event.startTime;
-      //      event.startTime = new Date(
-      //       Date.UTC(
-      //         start.getUTCFullYear(),
-      //         start.getUTCMonth(),
-      //         start.getUTCDate()
-      //         )
-      //     );
-      //     event.endTime = new Date(
-      //       Date.UTC(
-      //         start.getUTCFullYear(),
-      //         start.getUTCMonth(),
-      //         start.getUTCDate() + 1
-      //       )
-      //     );
-      //   }
-      //   this.eventSource.push(result.data.event);
-      //   this.myCal.loadEvents();
-      // }
+      let eventCopy = {
+        title: result.data.event.title,
+        startTime: new Date(result.data.event.startTime),
+        endTime: new Date(result.data.event.endTime),
+        allDay: result.data.event.allDay,
+        desc: result.data.event.desc,
+      };
+        console.log(eventCopy.startTime, eventCopy.endTime, "test")
+      // handle event if its all day
+      if (eventCopy.allDay) {
+        let start = eventCopy.startTime;
+        let end = eventCopy.endTime;
+
+        eventCopy.startTime = new Date(
+          Date.UTC(
+            start.getUTCFullYear(),
+            start.getUTCMonth(),
+            start.getUTCDate()
+          )
+        );
+        eventCopy.endTime = new Date(
+          Date.UTC(
+            end.getUTCFullYear(),
+            end.getUTCMonth(),
+            end.getUTCDate() + 1
+          )
+        );
+      }
+
+      this.eventSource.push(eventCopy);
+      this.myCal.loadEvents();
+      this.resetEvent();
     });
-}
-resetEvent() {
-  this.event = {
-    title: '',
-    desc: '',
-    startTime: new Date().toISOString(),
-    endTime: new Date().toISOString(),
-    allDay: false
-  };
-}
-}
+  }
+  resetEvent() {
+    this.event = {
+      title: '',
+      desc: '',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+      allDay: false,
+    };
+  }
+  async onEventSelected(event) {
+    // Use Angular date pipe for conversion
+    let start = formatDate(event.startTime, 'medium',this.locale);
+    let end = formatDate(event.endTime, 'medium',this.locale);
+   
+    const alert = await this.alertCtrl.create({
+      header: event.title,
+      subHeader: event.desc,
+      message: 'From: ' + start + '<br><br>To: ' + end,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  }
+
+
 

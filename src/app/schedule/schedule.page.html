@@ -1,0 +1,48 @@
+<ion-header style="color: transparent;">
+  <ion-back-button style="float: left"></ion-back-button>
+  
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list-header>
+    <ion-item>
+      <ion-label>
+        <h1>{{userProfile[0].username}}'s trip</h1>
+        <h3><b>Today:</b> {{formatedDate}}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list-header>
+  <ion-list *ngFor="let location of userTrips">
+    <ion-card>
+      <div id="container">
+        <div id="box1">  
+          <p style="text-align: center;">{{location.startTime}}</p>
+          <p style="text-align: center;">-</p>
+       <p style="text-align: center;">{{location.endTime}}</p>
+        </div>
+        <div id="box2">  
+          <p style="text-align: center;">{{location.title}}</p>
+          <p style="text-align: center;">{{location.cost}}</p>
+        </div>
+          <div id="box3">
+            <img  id="size" [src]="location.img">
+          </div>
+          <!-- <img id="box3" [src]="location.img"> -->
+          <!-- <p>fenfknwnfnrj</p> -->
+      </div>
+      <!-- <img [src]="location.img">
+       
+      <h1>{{location.title}}</h1> -->
+
+       <!-- <h3 class="">{{location.startTime}}</h3>
+       <br>
+       <h3 class="time2">{{location.endTime}}</h3> -->
+       
+       <!-- <ion-card> -->
+      
+      <!-- </ion-card> -->
+  </ion-card>
+     
+    
+  </ion-list>
+</ion-content>

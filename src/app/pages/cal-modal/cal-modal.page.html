@@ -11,32 +11,61 @@
     </ion-button>
   </ion-buttons>
 </ion-toolbar>
- 
+
+
 <ion-content>
-  <ion-item>
-    <ion-label position="stacked">Title</ion-label>
-    <ion-input tpye="text" [(ngModel)]="event.title"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Description</ion-label>
-    <ion-input tpye="text" [(ngModel)]="event.desc"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Start</ion-label>
-    <ion-datetime displayFormat="YYYY-MM-DDTHH:mmZ" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
-  </ion-item>
-  <ion-item>
-    <ion-label>End</ion-label>
-    <ion-datetime displayFormat="YYYY-MM-DDTHH:mmZ" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
-  </ion-item>
- 
-  <calendar
-    *ngIf="modalReady"
-    [calendarMode]="calendar.mode"
-    [currentDate]="calendar.currentDate"
-    (onTitleChanged)="onViewTitleChanged($event)"
-    (onTimeSelected)="onTimeSelected($event)"
-    lockSwipes="true"
-  >
-  </calendar>
+
+<ion-card>
+  <ion-card-header tappable (click)="collapseCard = !collapseCard">
+    <ion-card-title>New Event</ion-card-title>
+  </ion-card-header>
+  <ion-card-content *ngIf="!collapseCard">
+    <ion-item>
+      <ion-input
+        type="text"
+        placeholder="Title"
+        [(ngModel)]="event.title"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        type="text"
+        placeholder="Description"
+        [(ngModel)]="event.desc"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Start</ion-label>
+      <ion-datetime
+        displayFormat="MM/DD/YYYY HH:mm"
+        pickerFormat="MMM D:HH:mm"
+        [(ngModel)]="event.startTime"
+        [min]="minDate"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>End</ion-label>
+      <ion-datetime
+        displayFormat="MM/DD/YYYY HH:mm"
+        pickerFormat="MMM D:HH:mm"
+        [(ngModel)]="event.endTime"
+        [min]="minDate"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>All Day?</ion-label>
+      <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+
+<!-- <calendar
+  *ngIf="modalReady"
+  [calendarMode]="calendar.mode"
+  [currentDate]="calendar.currentDate"
+  (onTitleChanged)="onViewTitleChanged($event)"
+  (onTimeSelected)="onTimeSelected($event)"
+  lockSwipes="true"
+>
+</calendar> -->
 </ion-content>

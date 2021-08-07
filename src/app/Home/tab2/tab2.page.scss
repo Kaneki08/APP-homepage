@@ -1,9 +1,35 @@
 ion-button {
     --border-color: var(--ion-color-warning);
     --color: var(--ion-color-secondary);
-  }
+    --border-width: 5px;
+    }
 
   #size{
-    width: 100px;
-    height: 100px;
+    width: 142px;
+    height: 142px;
+    position: relative;
+
+
   }
+
+  #size-recent-trip{
+    width: 142px;
+    height: 142px;
+    position: relative;
+    margin-left: 50px;
+    background-image: url("../../../assets/LA.jpeg") ;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10%;
+
+  }
+
+  #button-wrapper{
+    text-align: center;
+  }
+
+
+  // ion-card {
+  //   width:  176px;
+  //   height: 142x;
+  // }

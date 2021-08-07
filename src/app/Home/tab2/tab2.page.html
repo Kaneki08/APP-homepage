@@ -1,10 +1,10 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title style="font-family:cursive;">
       PoLocal
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <style>
   :root {
@@ -34,9 +34,14 @@
 
 
 <ion-content [fullscreen]="true">
-  <header style="text-align: center;">My Trips</header>
-  <section>
+  <h1 style="text-align: center;">My Trips</h1>
+  <section id="button-wrapper">
   <ion-button id="size" [routerLink]="['/planning']" color fill="outline" style=" color: #FCAB10;" >+</ion-button>
+  <ion-button id="size-recent-trip" [routerLink]="['/planning']" color fill="outline" style=" color: #FCAB10;">
+  
+  </ion-button>
+  
+  
 </section>
 
 <br>
@@ -44,13 +49,13 @@
 <br>
 <!-- Adding Your trips -->
 <section>
-<header style="text-align: center;">User trips</header>
+<h1 style="text-align: center;">User trips</h1>
 <ion-slides pager="true" [options]="slideOps">
-  <ion-slide>
+  <ion-slide class="cardsi">
    
     <ion-card>
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfNd63mr0SYdsAmI0gTXMWXPzq7MIKp9dycA&usqp=CAU" style="width:300px;height:200px;">
-      <ion-card-title>Silcon Valley </ion-card-title>
+      <ion-card-subtitle>Silcon Valley </ion-card-subtitle>
       <ion-card-subtitle>
         Thuersday - Sunday
       </ion-card-subtitle>
@@ -58,11 +63,21 @@
             $150
       </ion-card-subtitle>
    </ion-card>
+   <ion-card>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfNd63mr0SYdsAmI0gTXMWXPzq7MIKp9dycA&usqp=CAU" style="width:300px;height:200px;">
+    <ion-card-subtitle>Silcon Valley </ion-card-subtitle>
+    <ion-card-subtitle>
+      Thuersday - Sunday
+    </ion-card-subtitle>
+    <ion-card-subtitle>
+          $150
+    </ion-card-subtitle>
+  </ion-card>
   </ion-slide>
   <ion-slide>
     <ion-card>
    <img src="https://deadline.com/wp-content/uploads/2021/03/AdobeStock_90015597.jpeg?crop=3423px%2C509px%2C4952px%2C2772px&resize=681%2C383" style="width:300px;height:200px;">
-   <ion-card-title>Los Angeles </ion-card-title>
+   <ion-card-subtitle>Los Angeles </ion-card-subtitle>
    <ion-card-subtitle>
     Monday - Wednesday
   </ion-card-subtitle>

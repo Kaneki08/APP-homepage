@@ -41,7 +41,7 @@ export class TripPage implements OnInit {
     {
       locationName: "Universal Studios",
       description: "Its a theme park and they make movies",
-      Cost: "$500",
+      Cost: "$50",
       startTime:"6 Am",
       endTime:"9 Am",
       tag: "attractions"
@@ -73,7 +73,7 @@ export class TripPage implements OnInit {
     {
       locationName: 'In-N-Out Burger',
       description: 'Best Burger Place',
-          cost: '$20',
+          Cost: '$20',
           startTime: '6 Am ',
           endTime: ' 1 Pm ',
           tag: "restaurants",
@@ -83,7 +83,7 @@ export class TripPage implements OnInit {
     {
       locationName: 'Six flags',
       description:"One of the best places to have fun",
-      cost: '$60',
+      Cost: '$60',
     startTime: '1 Pm',
     endTime: '3 Pm ',
     allDay: false,

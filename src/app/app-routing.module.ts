@@ -5,7 +5,7 @@ const routes: Routes = [
   { path: '', loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)},
   {
     path: 'planning',
-    loadChildren: () => import('./planning/planning.module').then( m => m.PlanningPageModule)
+    loadChildren: () => import('./Home/planning/planning.module').then( m => m.PlanningPageModule)
   },
   {
     path: 'trip',
@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'schedule',
-    loadChildren: () => import('./schedule/schedule.module').then( m => m.SchedulePageModule)
+    loadChildren: () => import('./Home/schedule/schedule.module').then( m => m.SchedulePageModule)
   },
 ];
 @NgModule({

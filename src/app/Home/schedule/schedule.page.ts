@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import{ UserTripsService } from '../shared/user-trips.service'
+import{ UserTripsService } from '../../shared/user-trips.service'
 
 
 

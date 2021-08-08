@@ -6,9 +6,10 @@ border-radius: 21px;
 width: 200px;
 
 position: absolute;
-left: 100px;
+left: 90px;
 right: 80px;
-top: 290px;
+
+
 }
 
 #size2{
@@ -18,8 +19,10 @@ top: 290px;
 border-radius: 21px;
 width: 300px;
 position: absolute;
-left: 60px;
-right: 80px;
+left: 40px;
+margin-top: 50px;
+
+
 }
 #size3 {
     background-color: white; 
@@ -28,14 +31,11 @@ right: 80px;
 border-radius: 21px;
 width: 300px;
 position: absolute;
-left: 60px;
-right: 80px;
+left: 40px;
+
 }
 
 #allign {
-    
- position: relative;
- left: 80px;
- bottom: 50px;
-    
+
+ text-align: center;
 }

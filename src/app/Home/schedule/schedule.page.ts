@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import{ UserTripsService } from '../../shared/user-trips.service'
-
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -9,6 +9,8 @@ import{ UserTripsService } from '../../shared/user-trips.service'
   styleUrls: ['./schedule.page.scss'],
 })
 export class SchedulePage implements OnInit {
+
+public index= 0;
 
   public date= new Date()
   
@@ -19,7 +21,7 @@ export class SchedulePage implements OnInit {
     year: "numeric"
   })
 
-  constructor(private userTripsService: UserTripsService) { 
+  constructor(private userTripsService: UserTripsService, private alertCtrl: AlertController) { 
     
   }
   public userProfile = this.userTripsService.user; // this makes a reference to your data
@@ -28,6 +30,25 @@ export class SchedulePage implements OnInit {
   ngOnInit() {
     console.log(this.userTripsService.user)
     console.log(this.userTrips)
+    this.showAlert()
+    
+  }
+  
+  async showAlert() {
+   const alert = await this.alertCtrl.create({
+     header:"You surpassed your time at ",
+     subHeader:"In N Out It's currently 1:30 Pm ",
+     message: "You won't make it to Six Flags at time",
+     buttons: ["ok"],
+   })
+   await alert.present();
+   console.log(document.getElementById("card1"));
+   this.missEvent();
+  }
+
+  missEvent() {
+    const card = document.getElementById("card1");
+    card.style.background= "red";
   }
 
 }

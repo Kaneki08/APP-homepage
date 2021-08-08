@@ -13,9 +13,10 @@
       </ion-label>
     </ion-item>
   </ion-list-header>
-  <ion-list *ngFor="let location of userTrips">
-    <ion-card>
-      <div id="container">
+  <ion-list *ngFor="let location of userTrips; let i = index">
+    <div >
+      <ion-card id="{{'card'+ i}}">
+      <div id="container" >
         <div id="box1">  
           <p style="text-align: center;">{{location.startTime}}</p>
           <p style="text-align: center;">-</p>
@@ -43,7 +44,8 @@
       
       <!-- </ion-card> -->
   </ion-card>
-     
+</div>
+
     
   </ion-list>
 </ion-content>

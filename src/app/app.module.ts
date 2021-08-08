@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { CalendarModule } from 'ion2-calendar';
+import { TabsPage } from './tabs/tabs.page'
 
 
 @NgModule({

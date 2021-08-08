@@ -5,8 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { PlanningPageRoutingModule } from './planning-routing.module';
-
+import { TabsPageModule } from '../../tabs/tabs.module'
 import { PlanningPage } from './planning.page';
+
 
 @NgModule({
   imports: [

@@ -37,7 +37,7 @@
   <h1 style="text-align: center;">My Trips</h1>
   <section id="button-wrapper">
   <ion-button id="size" [routerLink]="['/planning']" color fill="outline" style=" color: #FCAB10;" >+</ion-button>
-  <ion-button id="size-recent-trip" [routerLink]="['/planning']" color fill="outline" style=" color: #FCAB10;">
+  <ion-button id="size-recent-trip" [routerLink]="['/schedule']" color fill="outline" style=" color: #FCAB10;">
   
   </ion-button>
   
@@ -50,6 +50,53 @@
 <!-- Adding Your trips -->
 <section>
 <h1 style="text-align: center;">User trips</h1>
+<ion-slides pager="true" [options]="slideOps">
+  <ion-slide >
+   
+    <ion-card>
+      <img src="https://deadline.com/wp-content/uploads/2021/03/AdobeStock_90015597.jpeg?crop=3423px%2C509px%2C4952px%2C2772px&resize=681%2C383" >
+      <ion-card-subtitle>Los Angeles </ion-card-subtitle>
+      <ion-card-subtitle>
+       Monday - Wednesday
+     </ion-card-subtitle>
+     <ion-card-subtitle>
+             $67
+     </ion-card-subtitle>
+       </ion-card>
+   <ion-card>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfNd63mr0SYdsAmI0gTXMWXPzq7MIKp9dycA&usqp=CAU">
+    <ion-card-subtitle>Silcon Valley </ion-card-subtitle>
+    <ion-card-subtitle>
+      Thuersday - Sunday
+    </ion-card-subtitle>
+    <ion-card-subtitle>
+          $150
+    </ion-card-subtitle>
+  </ion-card>
+  </ion-slide>
+  <ion-slide>
+    <ion-card>
+   <img src="https://deadline.com/wp-content/uploads/2021/03/AdobeStock_90015597.jpeg?crop=3423px%2C509px%2C4952px%2C2772px&resize=681%2C383"  >
+   <ion-card-subtitle>Los Angeles </ion-card-subtitle>
+   <ion-card-subtitle>
+    Monday - Wednesday
+  </ion-card-subtitle>
+  <ion-card-subtitle>
+          $67
+  </ion-card-subtitle>
+    </ion-card>
+    <ion-card>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfNd63mr0SYdsAmI0gTXMWXPzq7MIKp9dycA&usqp=CAU"  >
+      <ion-card-subtitle>Silcon Valley </ion-card-subtitle>
+      <ion-card-subtitle>
+        Thuersday - Sunday
+      </ion-card-subtitle>
+      <ion-card-subtitle>
+            $150
+      </ion-card-subtitle>
+    </ion-card>
+  </ion-slide>
+</ion-slides>
 <ion-slides pager="true" [options]="slideOps">
   <ion-slide >
    

@@ -142,8 +142,23 @@ export class Tab1Page {
   
   //wE CALL THIS FROM EACH ITEM.
   SelectSearchResult(item) {
-    ///WE CAN CONFIGURE MORE COMPLEX FUNCTIONS SUCH AS UPLOAD DATA TO FIRESTORE OR LINK IT TO SOMETHING
-    alert(JSON.stringify(item))      
+    ///WE CAN CONFIGURE MORE COMPLEX FUNCTIONS SUCH AS UPLOAD DATA TO FIRESTORE OR LINK IT TO SOMETHING 
+    var geocoder = new google.maps.Geocoder();
+    var address = item.description;
+    geocoder.geocode({
+      'address': address
+    }, (results, status) => {
+    if (status == google.maps.GeocoderStatus.OK) {
+      var latitude = results[0].geometry.location.lat();
+      var longitude = results[0].geometry.location.lng();
+      this.map.panTo(new google.maps.LatLng( latitude, longitude ) );
+      const latLng = {lat: latitude, lng: longitude};      
+      const marker = new google.maps.Marker({
+        position: latLng,
+        map: this.map,
+      });
+      }
+    });
     this.placeid = item.place_id
   }
   
@@ -189,7 +204,7 @@ export class Tab1Page {
         allDay: result.data.event.allDay,
         desc: result.data.event.desc,
       };
-        console.log(eventCopy.startTime, eventCopy.endTime, "test")
+
       // handle event if its all day
       if (eventCopy.allDay) {
         let start = eventCopy.startTime;

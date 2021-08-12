@@ -36,7 +36,7 @@ public index= 0;
   
   async showAlert() {
    const alert = await this.alertCtrl.create({
-     header:"You surpassed your time at ",
+     header:"You exceed your time at ",
      subHeader:"In N Out It's currently 1:30 Pm ",
      message: "You won't make it to Six Flags at time",
      buttons: ["ok"],
@@ -44,11 +44,30 @@ public index= 0;
    await alert.present();
    console.log(document.getElementById("card1"));
    this.missEvent();
+   this.stylePTag();
   }
 
   missEvent() {
     const card = document.getElementById("card1");
+    const p = document.createElement("button");
+    p.id = "test"
+    p.textContent = "Delete";
     card.style.background= "red";
+    card.appendChild(p);
   }
 
+  stylePTag() {
+    const p = document.getElementById("test")
+    p.style.color = "white"
+    p.style.float = "right"
+    p.style.background= "red"
+    p.style.marginRight = "20px"
+    p.style.marginBottom = "20px"
+    p.onclick = this.testFunction
+  }
+testFunction() {
+  alert(
+    "Button Works"
+  )
+} 
 }

@@ -13,6 +13,14 @@
       </ion-label>
     </ion-item>
   </ion-list-header>
+  <ion-list-header>
+  <ion-item>
+    <ion-label>
+      <h1>Budget: <b>$100</b> </h1>
+    
+    </ion-label>
+  </ion-item>
+  </ion-list-header>
   <ion-list *ngFor="let location of userTrips; let i = index">
     <div >
       <ion-card id="{{'card'+ i}}">
@@ -27,7 +35,7 @@
           <p style="text-align: center;">{{location.cost}}</p>
         </div>
           <div id="box3">
-            <img  id="size" [src]="location.img">
+            <img  id="size" [src]="location.img" style= "top: 20px;">
           </div>
           <!-- <img id="box3" [src]="location.img"> -->
           <!-- <p>fenfknwnfnrj</p> -->
